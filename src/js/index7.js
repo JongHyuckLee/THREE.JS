@@ -1,5 +1,6 @@
 import * as THREE from "three";
-
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+console.log(OrbitControls);
 // 장면 생성
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xffe187);
@@ -16,7 +17,13 @@ camera.lookAt(0, 0, 0);
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
-
+const controls = new OrbitControls(camera, renderer.domElement);
+// controls.enableZoom = false;
+// controls.enableRotate = false;
+// controls.enablePan = false;
+controls.minDistance = 2;
+controls.maxDistance = 10;
+controls.maxPolarAngle = Math.PI / 3;
 // 빛
 const ambientLight = new THREE.AmbientLight(0xffffff, 1);
 scene.add(ambientLight);
@@ -30,3 +37,13 @@ const geometry = new THREE.BoxGeometry(1, 1, 1);
 const material = new THREE.MeshStandardMaterial({ color: 0x2e6ff2 });
 const cube = new THREE.Mesh(geometry, material);
 scene.add(cube);
+renderer.render(scene, camera);
+controls.update();
+function animate() {
+  requestAnimationFrame(animate);
+
+  controls.update();
+
+  renderer.render(scene, camera);
+}
+animate();
