@@ -21,7 +21,7 @@ const controls = new OrbitControls(camera, renderer.domElement);
 
 // 빛 - DirectionalLight, PointLight, SpotLight
 const dl = new THREE.DirectionalLight(0xffffff, 1);
-dl.position.set(0, 3, 2);
+dl.position.set(2, 4, 3);
 dl.castShadow = true;
 dl.lookAt(0, 0, 0);
 dl.target.position.set(0, 0, 0);
@@ -31,6 +31,9 @@ dl.shadow.mapSize.height = 1024;
 
 //  blur
 dl.shadow.radius = 5;
+
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+scene.add(ambientLight);
 
 renderer.shadowMap.enabled = true;
 scene.add(dl);
@@ -45,19 +48,20 @@ plane.position.y = -1;
 plane.receiveShadow = true;
 scene.add(plane);
 
-
-const loader = new THREE.TextureLoader();
-const baseColor = loader.load('/src/textures/bark/Bark_06_basecolor.jpg');
-const normal = loader.load('/src/textures/bark/Bark_06_normal.jpg');
-const rough  = loader.load('/src/textures/bark/Bark_06_roughness.jpg');
-const height  = loader.load('/src/textures/bark/Bark_06_height.png');
-
+const materials = [
+  new THREE.MeshStandardMaterial({ color: 0xff0000 }),
+  new THREE.MeshStandardMaterial({ color: 0xff8c00 }),
+  new THREE.MeshStandardMaterial({ color: 0xffee00 }),
+  new THREE.MeshStandardMaterial({ color: 0x4de94c }),
+  new THREE.MeshStandardMaterial({ color: 0x3783ff }),
+  new THREE.MeshStandardMaterial({ color: 0x4815aa }),
+];
 
 
 // 박스
-const geometry = new THREE.SphereGeometry(1);
-const material = new THREE.MeshStandardMaterial({ map: baseColor, normalMap: normal, roughness: 0.4, normalScale: new THREE.Vector2(1, 1), roughnessMap: rough, displacementMap: height });
-const cube = new THREE.Mesh(geometry, material);
+const geometry = new THREE.BoxGeometry(1, 1, 1);
+const material = new THREE.MeshStandardMaterial({ color: 0xffaaaa });
+const cube = new THREE.Mesh(geometry, materials);
 cube.castShadow = true;
 scene.add(cube);
 
