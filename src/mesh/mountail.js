@@ -22,5 +22,7 @@ export default function printMountain() {
     }),
   ];
   const mountain = new THREE.Mesh(geometry, materials);
+  mountain.castShadow = true;
+  mountain.receiveShadow = true;
   return mountain;
 }

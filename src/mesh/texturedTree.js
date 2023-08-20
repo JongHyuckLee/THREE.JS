@@ -78,5 +78,10 @@ export default function printTree() {
   // leafGroup.rotation.z = THREE.MathUtils.degToRad(-10);
   treeGroup.add(leafGroup);
   treeGroup.position.x = 3;
+
+  for (const mesh of treeGroup.children) {
+    mesh.castShadow = true;
+    mesh.recieveShadow = true;
+  }
   return treeGroup;
 }

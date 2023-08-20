@@ -45,5 +45,11 @@ export default function printTangerine() {
   leaf.position.z = 0.5;
   leaf.rotation.x = -Math.PI / 2;
   group.add(leaf);
+
+  for (const mesh of group.children) {
+    mesh.castShadow = true;
+    mesh.recieveShadow = true;
+  }
+
   return group;
 }

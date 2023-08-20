@@ -64,5 +64,9 @@ export default function printCharacter() {
   armRight.rotation.y = Math.PI;
   character.add(armRight);
 
+  for (const mesh of character.children) {
+    mesh.castShadow = true;
+    mesh.recieveShadow = true;
+  }
   return character;
 }
